@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
-from pydantic import BaseModel, validator
+from pydantic import BaseModel, field_validator
 from typing import Optional
 import secrets
 from auth import verify_google_token, create_jwt_token, get_current_user
@@ -15,15 +15,18 @@ class GoogleSignInRequest(BaseModel):
     device_id: str
     platform: str  
 
-    @validator('device_id')
+    @field_validator('device_id')
     def validate_device_id(cls, v, values):
-        if values.get('platform') == 'ios':
-            
+        platform = values.get('platform')
+        if platform == 'ios':
             if not re.match(r'^[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}$', v, re.IGNORECASE):
                 raise ValueError('Invalid iOS device UUID format')
+        elif platform == 'android':
+            if not re.match(r'^[a-zA-Z0-9]{16}$', v):  
+                raise ValueError('Invalid Android device ID format')
         return v
 
-    @validator('platform')
+    @field_validator('platform')
     def validate_platform(cls, v):
         if v not in ['ios', 'android', 'web']:
             raise ValueError('Platform must be one of: ios, android, web')
@@ -62,7 +65,6 @@ async def signup_with_google(request: GoogleSignInRequest):
             device_id=device_id,
             platform=platform
         )
-
         
         access_token = create_jwt_token(user_id)
         return UserResponse(
