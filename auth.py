@@ -4,6 +4,8 @@ from google.auth.transport import requests
 from jose import jwt
 from datetime import datetime, timedelta
 import os
+from fastapi import HTTPException
+
 
 
 # Config
