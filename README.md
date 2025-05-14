@@ -23,9 +23,6 @@
 
 Now every company can **secure their user base** without complex infrastructure. **Get started today!** 🚀  
 
-# 🔒 **SecureAuth API**  
-*A One-Account-Per-Device Authentication System*  
-
 ![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)  
 ![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)  
 ![Google Sign-In](https://img.shields.io/badge/Google%20Sign--In-4285F4?style=for-the-badge&logo=google&logoColor=white)  
