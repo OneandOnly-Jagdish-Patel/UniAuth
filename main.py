@@ -4,7 +4,7 @@ from pydantic import BaseModel, field_validator
 from typing import Optional
 import secrets
 from auth import verify_google_token, create_jwt_token, get_current_user
-from database import save_user, get_user_by_device, revoke_old_sessions  # <-- Import MongoDB functions
+from database import save_user, get_user_by_device, revoke_old_sessions 
 import re
 
 app = FastAPI()
@@ -18,7 +18,6 @@ async def validate_api_key(api_key: str = Security(api_key_header)):
     if api_key != API_KEY:
         raise HTTPException(status_code=403, detail="Invalid API Key")
     
-# Models
 class GoogleSignInRequest(BaseModel):
     email: str
     google_token: str
@@ -134,7 +133,6 @@ async def signin_to_new_device(
     if not user_email:
         raise HTTPException(status_code=400, detail="Invalid Google token")
 
-    
     existing_user = await get_user_by_device(device_id)  
     if existing_user:
         raise HTTPException(
