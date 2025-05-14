@@ -111,12 +111,6 @@ MIT © 2024 Jagdish Patel
 
 ---
 
-## 💡 **Need Help?**  
-Raise an issue or contact:  
-📧 your.email@example.com  
-
----
-
 ✨ **Powered by FastAPI & Modern Security Practices** ✨  
 
 --- 
